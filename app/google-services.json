@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "295043818388-k5amrbndhrurdd4dutdc1os4pah2t3n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.cice.appcomer",
+            "certificate_hash": "4cb308f69ecfa6de341d76a7946234703d085966"
+          }
+        },
+        {
           "client_id": "295043818388-s2v171qel4c6mutfo3vkvsens3eqsqo0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

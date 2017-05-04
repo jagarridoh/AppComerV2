@@ -55,6 +55,11 @@ public class SignInActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        Log.d(TAG, "onCreate:");
+
+        // Initialize FirebaseAuth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
         // Assign fields
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -71,12 +76,12 @@ public class SignInActivity extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        // Initialize FirebaseAuth
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        Log.d(TAG, "fin onCreate");
     }
 
     @Override
     public void onClick(View v) {
+        Log.d(TAG, "onClick");
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
@@ -94,6 +99,7 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void signIn() {
+        Log.d(TAG, "signin");
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -101,6 +107,7 @@ public class SignInActivity extends AppCompatActivity implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult ini");
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -112,6 +119,7 @@ public class SignInActivity extends AppCompatActivity implements
             } else {
                 // Google Sign-In failed
                 Log.e(TAG, "Google Sign-In failed.");
+//                Log.d(TAG, result.getSignInAccount().getEmail());
             }
         }
     }

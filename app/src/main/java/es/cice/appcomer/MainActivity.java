@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "Ini del oncreate.");
 
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
@@ -38,21 +39,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
+            Log.d(TAG, "Not signed in, launch the Sign In activity.");
             startActivity(new Intent(this, SignInActivity.class));
             finish();
+            Log.d(TAG, "Después de start activity");
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
+            Log.d(TAG, "Signed in: " + mUsername);
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
         }
 
+        Log.d(TAG, "oncreate: antes de GoogleApiClientBuilder.");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
+        Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Fin del oncreate.");
     }
 
 
@@ -65,26 +72,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // old: return super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case 12345678: //todo antes había: R.id.sign_out_menu:
-                mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                mUsername = ANONYMOUS;
-                startActivity(new Intent(this, SignInActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // old: return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case 12345678: //to do antes había: R.id.sign_out_menu:
+//                mFirebaseAuth.signOut();
+//                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+//                mUsername = ANONYMOUS;
+//                startActivity(new Intent(this, SignInActivity.class));
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        //todo añadir el menu: inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        //to do añadir el menu: inflater.inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
 
 }
