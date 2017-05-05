@@ -15,6 +15,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     // Firebase instance variables
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
-
+//        escribirDatosPrueba();
+        escribirObjetosPrueba();
         Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Fin del oncreate.");
     }
@@ -71,6 +74,36 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
+
+    private void escribirDatosPrueba() {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
+    }
+
+    private void escribirObjetosPrueba() {
+        // Write objects to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("Comidas");
+        Comida comida = new Comida("Comida generada desde Java", "Restaurante 1", "01/01/2018 14:00", "Comida00001");
+//        myRef.setValue("Hello, World!");
+        myRef.child(comida.getId()).setValue(comida);
+        /*
+            User user = new User(name, email);
+
+    mDatabase.child("users").child(userId).setValue(user);
+         */
+
+
+
+
+    }
+
+    private void leerTodosDatosFirebase() {
+
+    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
