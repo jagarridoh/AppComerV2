@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -15,8 +17,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     // Firebase instance variables
@@ -27,6 +32,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private String mPhotoUrl;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "MainActivity";
+    private Object resultadoConsulta;
+
+    public Object getResultadoConsulta() {
+        return resultadoConsulta;
+    }
+
+    public void setResultadoConsulta(Object resultadoConsulta) {
+        this.resultadoConsulta = resultadoConsulta;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +48,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
         Log.d(TAG, "Ini del oncreate.");
 
+        Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Resultado consulta=" + getResultadoConsulta(), Toast.LENGTH_SHORT).show();
+                // funciona: Comida comida2 = (Comida) getResultadoConsulta();
+            }
+        });
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
         // Initialize Firebase Auth
@@ -61,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
 //        escribirDatosPrueba();
         escribirObjetosPrueba();
+//        leerPrueba();
+        ConsultasFirebase.setMainActivity(this);
+//        Comida comida = ConsultasFirebase.buscarComidaPorId("Comida00001");
+        ConsultasFirebase.buscarComidaPorId("Comida00001");
+//        Log.d(TAG, "comida=" + comida);
         Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Fin del oncreate.");
     }
@@ -91,14 +118,29 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //        myRef.setValue("Hello, World!");
         myRef.child(comida.getId()).setValue(comida);
         /*
-            User user = new User(name, email);
-
+        User user = new User(name, email);
     mDatabase.child("users").child(userId).setValue(user);
          */
+    }
 
-
-
-
+    private void leerPrueba() {
+        // todo primero buscamos la Comida00001
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Comidas");
+        myRef.child("Comida00001").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        Comida comida = dataSnapshot.getValue(Comida.class);
+                        Log.d(TAG, "Se ha recuperado de firebase: " + comida.toString());
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
     }
 
     private void leerTodosDatosFirebase() {
