@@ -24,6 +24,7 @@ public class ConsultasFirebase {
     public static void setMainActivity(MainActivity mainActivity) {
         ConsultasFirebase.mainActivity = mainActivity;
     }
+
 //    static void RegistrarUsuarioActual() {
 //
 //    }

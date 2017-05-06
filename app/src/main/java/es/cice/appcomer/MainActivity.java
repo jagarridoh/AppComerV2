@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Resultado consulta=" + getResultadoConsulta(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Resultado2 consulta2=" + ConsultasFirebase.comida, Toast.LENGTH_SHORT).show();
                 // funciona: Comida comida2 = (Comida) getResultadoConsulta();
             }
         });
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         // ...
                     }
                 });
+    }
+
+    public void crearComida(View view) {
+        Log.w(TAG, "crearComida");
     }
 
     private void leerTodosDatosFirebase() {
