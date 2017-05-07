@@ -48,15 +48,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
         Log.d(TAG, "Ini del oncreate.");
 
-        Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Resultado consulta=" + getResultadoConsulta(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "Resultado2 consulta2=" + ConsultasFirebase.comida, Toast.LENGTH_SHORT).show();
-                // funciona: Comida comida2 = (Comida) getResultadoConsulta();
-            }
-        });
+//        Button button2 = (Button) findViewById(R.id.button2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "Resultado consulta=" + getResultadoConsulta(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Resultado2 consulta2=" + ConsultasFirebase.comida, Toast.LENGTH_SHORT).show();
+//                // funciona: Comida comida2 = (Comida) getResultadoConsulta();
+//            }
+//        });
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
         // Initialize Firebase Auth
@@ -86,10 +86,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         escribirObjetosPrueba();
 //        leerPrueba();
         ConsultasFirebase.setMainActivity(this);
+//        ConsultasFirebase.setNombreUsuario("Test User");
+        ConsultasFirebase.setNombreUsuario(mFirebaseUser.getDisplayName());
 //        Comida comida = ConsultasFirebase.buscarComidaPorId("Comida00001");
-        ConsultasFirebase.buscarComidaPorId("Comida00001");
+//        ConsultasFirebase.buscarComidaPorId("Comida00001");
 //        Log.d(TAG, "comida=" + comida);
-        Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Fin del oncreate.");
     }
 
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference myRef = database.getReference("message");
         DatabaseReference myRef = database.getReference("Comidas");
-        Comida comida = new Comida("Comida generada desde Java", "Restaurante 1", "01/01/2018 14:00", "Comida00001");
+        Comida comida = new Comida("Comida generada desde Java", "Restaurante 1", "", "01/01/2018 14:00", "Comida00001");
 //        myRef.setValue("Hello, World!");
         myRef.child(comida.getId()).setValue(comida);
         /*
@@ -146,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     public void crearComida(View view) {
         Log.w(TAG, "crearComida");
+        Intent i = new Intent(this, Main2Activity.class);
+//        i.putExtra("Campo", usuario);
+        startActivity(i);
     }
 
     private void leerTodosDatosFirebase() {

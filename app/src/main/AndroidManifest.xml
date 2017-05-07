@@ -20,4 +20,6 @@
         <activity android:name=".Main2Activity"></activity>
     </application>
 
+
+
 </manifest>

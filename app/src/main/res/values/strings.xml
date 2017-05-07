@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">AppComer</string>
     <string name="sign_in">sign_in</string>
+
+    <string name="boton_guardar">Guardar</string>
+    <string name="boton_cancelar">Cancelar</string>
+    <string name="boton_maps">Buscar restaurante en Google Places</string>
+
+    <string name="comida_titulo">COMIDA NUEVA</string>
+    <string name="comida_nombre">Evento comida</string>
+    <string name="comida_restaurante">Restaurante</string>
+    <string name="comida_ubicacion">Ubicación</string>
+    <string name="comida_fecha">Fecha comida</string>
+    <string name="comida_hora">Hora comida</string>
+
 </resources>

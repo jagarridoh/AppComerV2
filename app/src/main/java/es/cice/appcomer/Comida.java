@@ -7,15 +7,25 @@ package es.cice.appcomer;
 public class Comida {
     private String nombre;
     private String restaurante;
+    private String ubicacion;
     private String fechaHora;
     private String id;
 
     public Comida() {
     }
 
-    public Comida(String nombre, String restaurante, String fechaHora, String id) {
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public Comida(String nombre, String restaurante, String ubicacion, String fechaHora, String id) {
         this.nombre = nombre;
         this.restaurante = restaurante;
+        this.ubicacion = ubicacion;
         this.fechaHora = fechaHora;
         this.id = id;
     }
