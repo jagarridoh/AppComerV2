@@ -13,4 +13,6 @@
     <string name="comida_fecha">Fecha comida</string>
     <string name="comida_hora">Hora comida</string>
 
+    <string name="title_activity_maps">Mapa buscar restaurante</string>
+
 </resources>
