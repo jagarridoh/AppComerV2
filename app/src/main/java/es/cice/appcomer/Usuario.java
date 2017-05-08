@@ -6,12 +6,14 @@ package es.cice.appcomer;
 
 public class Usuario {
     String nombre;
+    int hambre;
 
     public Usuario() {
     }
 
     public Usuario(String nombre) {
         this.nombre = nombre;
+        this.hambre = 5;
     }
 
     public String getNombre() {
@@ -20,6 +22,14 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getHambre() {
+        return hambre;
+    }
+
+    public void setHambre(int hambre) {
+        this.hambre = hambre;
     }
 
     @Override

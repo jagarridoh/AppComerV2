@@ -137,11 +137,20 @@
             android:text="@string/boton_maps" />
 
         <Button
+            android:id="@+id/buttonComensales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="70dp"
+            android:onClick="abrirComensales"
+            android:text="@string/boton_comensales" />
+
+        <Button
             android:id="@+id/buttonGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="140dp"
             android:onClick="guardar"
             android:text="@string/boton_guardar" />
 
@@ -150,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="200dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="140dp"
             android:onClick="cancelar"
             android:text="@string/boton_cancelar" />
 

@@ -65,7 +65,6 @@ public class ConsultasFirebase {
     }
 
     static void CrearComida(String nombre, String restaurante, String ubicacion, String fecha, String hora) {
-        //todo programar envio
         Log.d(TAG, "Inicio de CrearComida");
         // Write objects to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -76,6 +75,15 @@ public class ConsultasFirebase {
         String contador = nombreUsuario.replace(" ", "_") + " " + dateFormat.format(date);
         Comida comida = new Comida(nombre, restaurante, ubicacion, fecha + " " + hora, contador);
         myRef.child(comida.getId()).setValue(comida);
+    }
+
+    static void CrearUsuario() {
+        Log.d(TAG, "Inicio de CrearUsuario");
+        // Write objects to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Usuarios");
+        Usuario usuario = new Usuario(getNombreUsuario());
+        myRef.child(usuario.getNombre()).setValue(usuario);
     }
 
 //    static String obtenerContadorComidas() {

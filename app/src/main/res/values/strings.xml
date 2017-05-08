@@ -5,6 +5,8 @@
     <string name="boton_guardar">Guardar</string>
     <string name="boton_cancelar">Cancelar</string>
     <string name="boton_maps">Buscar restaurante en Google Places</string>
+    <string name="boton_comensales">Añadir / modificar comensales</string>
+    <string name="boton_anadir_comensal">Añadir comensal</string>
 
     <string name="comida_titulo">COMIDA NUEVA</string>
     <string name="comida_nombre">Evento comida</string>

@@ -94,6 +94,12 @@ public class Main2Activity extends AppCompatActivity {
 //        startActivity(i);
     }
 
+    public void abrirComensales(View view) {
+        //todo abrir actividad y hay qye recuperar el resultado y meterlo en campo.
+        Log.d(TAG, "abrirComensales");
+//        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

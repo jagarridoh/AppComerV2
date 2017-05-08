@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 //        escribirDatosPrueba();
-        escribirObjetosPrueba();
+//        escribirObjetosPrueba();
 //        leerPrueba();
         ConsultasFirebase.setMainActivity(this);
 //        ConsultasFirebase.setNombreUsuario("Test User");
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //        ConsultasFirebase.buscarComidaPorId("Comida00001");
 //        Log.d(TAG, "comida=" + comida);
 //        Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
+        ConsultasFirebase.CrearUsuario();
         Log.d(TAG, "Fin del oncreate.");
     }
 
