@@ -4,15 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="es.cice.appcomer.Main3Activity">
 
     <Button
         android:id="@+id/buttonAnadirComensal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
         android:onClick="anadirComensal"
-        android:text="@string/boton_anadir_comensal" />
+        android:text="@string/boton_anadir_comensal"
+        android:textAlignment="center" />
 
-    <!--android:layout_weight="1"-->
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        />
 </LinearLayout>

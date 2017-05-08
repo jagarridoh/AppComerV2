@@ -95,9 +95,11 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void abrirComensales(View view) {
-        //todo abrir actividad y hay qye recuperar el resultado y meterlo en campo.
+        //Abrir actividad de comensales
         Log.d(TAG, "abrirComensales");
-//        finish();
+        Intent i = new Intent(this, Main3Activity.class);
+        //todo hay que recuperar el resultado y meterlo en campo.
+        startActivity(i);
     }
 
     @Override

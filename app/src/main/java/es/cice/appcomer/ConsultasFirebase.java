@@ -9,7 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by cice on 5/5/17.
@@ -20,6 +22,7 @@ public class ConsultasFirebase {
     private static MainActivity mainActivity;
     static Comida comida;
     static String nombreUsuario;
+    static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
 //    static Contador contadorComidasComun;
 
@@ -41,6 +44,15 @@ public class ConsultasFirebase {
 //    static void RegistrarUsuarioActual() {
 //
 //    }
+
+
+    public static List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public static void setListaUsuarios(List<Usuario> listaUsuarios) {
+        ConsultasFirebase.listaUsuarios = listaUsuarios;
+    }
 
     static void buscarComidaPorId(String id) {
 //        Comida comida = null;
@@ -114,4 +126,45 @@ public class ConsultasFirebase {
 }
      */
 
+    private static void addUserToList(Usuario u) {
+        if (! listaUsuarios.contains(u)) listaUsuarios.add(u);
+    }
+
+
+    public static void obtenerUsuariosDeFirebase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Usuarios");
+
+        // Attach a listener to read the data at our posts reference
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                Log.d(TAG, "Leido Usuario: " + usuario.toString());
+                //Añadir en la lista, antes mira que el usuario no esté ya.
+                addUserToList(usuario);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "The read failed: " + databaseError.getCode());
+            }
+        });
+
+                /*
+ref.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Post post = dataSnapshot.getValue(Post.class);
+        System.out.println(post);
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        System.out.println("The read failed: " + databaseError.getCode());
+    }
+});
+                 */
+
+    }
 }

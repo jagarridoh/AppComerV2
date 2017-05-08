@@ -1,5 +1,7 @@
 package es.cice.appcomer;
 
+import java.util.List;
+
 /**
  * Created by cice on 5/5/17.
  */
@@ -53,5 +55,10 @@ public class Usuario {
     @Override
     public int hashCode() {
         return nombre != null ? nombre.hashCode() : 0;
+    }
+
+
+    public static List<Usuario> getData() {
+        return ConsultasFirebase.getListaUsuarios();
     }
 }

@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //        Log.d(TAG, "comida=" + comida);
 //        Toast.makeText(this, "Fin del oncreate.", Toast.LENGTH_SHORT).show();
         ConsultasFirebase.CrearUsuario();
+        ConsultasFirebase.obtenerUsuariosDeFirebase();
         Log.d(TAG, "Fin del oncreate.");
     }
 
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void leerPrueba() {
-        // todo primero buscamos la Comida00001
+        //primero buscamos la Comida00001
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Comidas");
         myRef.child("Comida00001").addListenerForSingleValueEvent(
