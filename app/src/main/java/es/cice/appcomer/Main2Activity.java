@@ -17,10 +17,22 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.util.List;
+
 public class Main2Activity extends AppCompatActivity {
     private static final String TAG = "Main2Activ-Crear Comida";
     EditText editText1, editText2, editText3, editText4, editText5;
     private static final int REQUEST_PLACE_PICKER = 0;
+    private boolean guardado = false;
+    private List<Usuario> comensales;
+
+    public List<Usuario> getComensales() {
+        return comensales;
+    }
+
+    public void setComensales(List<Usuario> comensales) {
+        this.comensales = comensales;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +70,33 @@ public class Main2Activity extends AppCompatActivity {
 //        });
     }
 
+//    public void guardar(View view) {
+//        Log.d(TAG, "guardar");
+//        if (guardado) {
+//            //todo hacer el update de comida
+//        } else {
+//            ConsultasFirebase.CrearComida(editText1.getText().toString(),
+//                    editText2.getText().toString(),
+//                    editText3.getText().toString(),
+//                    editText4.getText().toString(),
+//                    editText5.getText().toString());
+//            guardado = true;
+//        }
+//    }
+
     public void guardar(View view) {
         Log.d(TAG, "guardar");
-        ConsultasFirebase.CrearComida(editText1.getText().toString(),
-                editText2.getText().toString(),
-                editText3.getText().toString(),
-                editText4.getText().toString(),
-                editText5.getText().toString());
+        if (guardado) {
+            //todo hacer el update de comida
+        } else {
+            ConsultasFirebase.CrearComidaComensales(editText1.getText().toString(),
+                    editText2.getText().toString(),
+                    editText3.getText().toString(),
+                    editText4.getText().toString(),
+                    editText5.getText().toString(),
+                    comensales);
+            guardado = true;
+        }
     }
 
     public void cancelar(View view) {

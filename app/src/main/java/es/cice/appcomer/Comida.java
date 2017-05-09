@@ -1,5 +1,8 @@
 package es.cice.appcomer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by cice on 5/5/17.
  */
@@ -10,6 +13,7 @@ public class Comida {
     private String ubicacion;
     private String fechaHora;
     private String id;
+    private List<Usuario> listaUsuarios;
 
     public Comida() {
     }
@@ -28,6 +32,16 @@ public class Comida {
         this.ubicacion = ubicacion;
         this.fechaHora = fechaHora;
         this.id = id;
+        this.listaUsuarios = new ArrayList<Usuario>();
+    }
+
+    public Comida(String nombre, String restaurante, String ubicacion, String fechaHora, String id, List<Usuario> listaUsuarios) {
+        this.nombre = nombre;
+        this.restaurante = restaurante;
+        this.ubicacion = ubicacion;
+        this.fechaHora = fechaHora;
+        this.id = id;
+        this.listaUsuarios = listaUsuarios;
     }
 
     public String getId() {

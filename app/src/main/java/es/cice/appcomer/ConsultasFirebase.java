@@ -22,6 +22,7 @@ public class ConsultasFirebase {
     final static String TAG = "ConsultasFirebase";
     private static MainActivity mainActivity;
     static Comida comida;
+    static String ultimoIdComidaGuardado;
     static String nombreUsuario;
     static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
@@ -88,6 +89,21 @@ public class ConsultasFirebase {
         String contador = nombreUsuario.replace(" ", "_") + " " + dateFormat.format(date);
         Comida comida = new Comida(nombre, restaurante, ubicacion, fecha + " " + hora, contador);
         myRef.child(comida.getId()).setValue(comida);
+        ultimoIdComidaGuardado = comida.getId();
+    }
+
+    static void CrearComidaComensales(String nombre, String restaurante, String ubicacion, String fecha, String hora, List<Usuario> listaUsuarios) {
+        Log.d(TAG, "Inicio de CrearComida");
+        // Write objects to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Comidas");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+//        System.out.println(dateFormat.format(date)); //2013/10/15 16:16:39
+        String contador = nombreUsuario.replace(" ", "_") + " " + dateFormat.format(date);
+        Comida comida = new Comida(nombre, restaurante, ubicacion, fecha + " " + hora, contador, listaUsuarios);
+        myRef.child(comida.getId()).setValue(comida);
+        ultimoIdComidaGuardado = comida.getId();
     }
 
     static void CrearUsuario() {
@@ -148,19 +164,61 @@ public class ConsultasFirebase {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, "The read failed: " + databaseError.getCode());
             }
         });
+    }
+
+
+
+    public static void obtenerComensalesDeComida(String idComida) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Comidas").child(idComida);
+
+        // Attach a listener to read the data at our posts reference
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String cadema) {
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                Log.d(TAG, "Leido Usuario: " + usuario.toString());
+                Log.d(TAG, "Leido Datasnapshot: " + dataSnapshot.toString());
+                //Añadir en la lista, antes mira que el usuario no esté ya.
+                addUserToList(usuario);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+
 
 //        // Attach a listener to read the data at our posts reference
 //        myRef.addValueEventListener(new ValueEventListener() {
@@ -194,5 +252,4 @@ ref.addValueEventListener(new ValueEventListener() {
 });
                  */
 
-    }
 }
