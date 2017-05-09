@@ -2,6 +2,7 @@ package es.cice.appcomer;
 
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -136,20 +137,47 @@ public class ConsultasFirebase {
         DatabaseReference myRef = database.getReference("Usuarios");
 
         // Attach a listener to read the data at our posts reference
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String cadema) {
                 Usuario usuario = dataSnapshot.getValue(Usuario.class);
                 Log.d(TAG, "Leido Usuario: " + usuario.toString());
+                Log.d(TAG, "Leido Datasnapshot: " + dataSnapshot.toString());
                 //Añadir en la lista, antes mira que el usuario no esté ya.
                 addUserToList(usuario);
             }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, "The read failed: " + databaseError.getCode());
             }
         });
+
+//        // Attach a listener to read the data at our posts reference
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+//                Log.d(TAG, "Leido Usuario: " + usuario.toString());
+//                Log.d(TAG, "Leido Datasnapshot: " + dataSnapshot.toString());
+//                //Añadir en la lista, antes mira que el usuario no esté ya.
+//                addUserToList(usuario);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d(TAG, "The read failed: " + databaseError.getCode());
+//            }
+//        });
 
                 /*
 ref.addValueEventListener(new ValueEventListener() {
